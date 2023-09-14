@@ -76,7 +76,6 @@ namespace TaxuallyTestAutomation.PageObjects
 
             nextButtonElement.Click();
         }
-        private int numberOfElementsToSelect;
         public void SelectRandomCountries(int numberOfCountries)
         {
             var elements = _driver.FindElements(selectCountries);
