@@ -18,8 +18,8 @@ namespace TaxuallyTestAutomation.PageObjects
         By inputField(string labelName) => By.XPath($"//label[contains(.,'{labelName}')]//..//input");
         By selectCountries => By.XPath("(//div[@class='container-fluid row'])[1]//button");
         By selectSpecificCountry(string countryName) => By.XPath($"(//div[@class='container-fluid row'])[1]//button[contains(.,'{countryName}')]");
-        By helpMeGetAVatButtons => By.XPath("//button[@class='btn btn-primary add-vatreg-to-cart']");
-        By nextStepButton => By.XPath("//button[@class='btn btn-primary d-inline-block']");
+        By btnsHelpMeGetAVat => By.XPath("//button[@class='btn btn-primary add-vatreg-to-cart']");
+        By btnNextStep => By.XPath("//button[@class='btn btn-primary d-inline-block']");
         #endregion
 
 
@@ -34,7 +34,7 @@ namespace TaxuallyTestAutomation.PageObjects
         {
             _driver.FindElement(inputField(labelName)).Click();
             _driver.FindElement(inputField(labelName)).SendKeys(value);
-            new Actions(_driver).SendKeys(Keys.Enter).Perform();
+            _driver.FindElement(inputField(labelName)).SendKeys(Keys.Enter);
         }
         public void SelectFirstCountry()
         {
@@ -62,7 +62,7 @@ namespace TaxuallyTestAutomation.PageObjects
         }
         public void ClickHelpMeGetAVat()
         {
-            var vatButtons = _driver.FindElements(helpMeGetAVatButtons);
+            var vatButtons = _driver.FindElements(btnsHelpMeGetAVat);
             foreach (var button in vatButtons)
             {
                 button.Click();
@@ -72,7 +72,7 @@ namespace TaxuallyTestAutomation.PageObjects
         {
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
 
-            IWebElement nextButtonElement = wait.Until(ExpectedConditions.ElementToBeClickable(nextStepButton));
+            IWebElement nextButtonElement = wait.Until(ExpectedConditions.ElementToBeClickable(btnNextStep));
 
             nextButtonElement.Click();
         }
