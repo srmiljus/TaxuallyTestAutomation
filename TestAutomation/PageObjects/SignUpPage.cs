@@ -15,11 +15,11 @@ namespace TaxuallyTestAutomation.PageObjects
         }
 
         #region Locators
-        By inputField(string labelName) => By.XPath($"//label[contains(.,'{labelName}')]//..//input");
-        By selectCountries => By.XPath("(//div[@class='container-fluid row'])[1]//button");
-        By selectSpecificCountry(string countryName) => By.XPath($"(//div[@class='container-fluid row'])[1]//button[contains(.,'{countryName}')]");
-        By btnsHelpMeGetAVat => By.XPath("//button[@class='btn btn-primary add-vatreg-to-cart']");
-        By btnNextStep => By.XPath("//button[@class='btn btn-primary d-inline-block']");
+        IWebElement inputField(string labelName) => _driver.FindElement(By.XPath($"//label[contains(.,'{labelName}')]//..//input"));
+        IList<IWebElement> selectCountries => _driver.FindElements(By.XPath("(//div[@class='container-fluid row'])[1]//button"));
+        IWebElement selectSpecificCountry(string countryName) => _driver.FindElement(By.XPath($"(//div[@class='container-fluid row'])[1]//button[contains(.,'{countryName}')]"));
+        IList<IWebElement> btnsHelpMeGetAVat => _driver.FindElements(By.XPath("//button[@class='btn btn-primary add-vatreg-to-cart']"));
+        IWebElement btnNextStep => _driver.FindElement(By.XPath("//button[@class='btn btn-primary d-inline-block']"));
         #endregion
 
 
@@ -32,38 +32,31 @@ namespace TaxuallyTestAutomation.PageObjects
         }
         public void ChooseValueFromDropDown(string value, string labelName)
         {
-            _driver.FindElement(inputField(labelName)).Click();
-            _driver.FindElement(inputField(labelName)).SendKeys(value);
-            _driver.FindElement(inputField(labelName)).SendKeys(Keys.Enter);
+            inputField(labelName).Click();
+            inputField(labelName).SendKeys(value);
+            inputField(labelName).SendKeys(Keys.Enter);
         }
         public void SelectFirstCountry()
         {
-            var elements = _driver.FindElements(selectCountries);
-            elements.FirstOrDefault().Click();
+
+            selectCountries.FirstOrDefault().Click();
 
         }
         public void SelectSpecificCountry(string countryName)
         {
-            _driver.FindElement(selectSpecificCountry(countryName)).Click();
+            selectSpecificCountry(countryName).Click();
         }
 
         public void SelectUnselectedCountries()
         {
-            var elements = _driver.FindElements(selectCountries);
-            foreach (var item in elements)
+            foreach (var item in selectCountries.Where(item => !item.GetAttribute("class").Contains("active")))
             {
-                string classAttributeValue = item.GetAttribute("class");
-
-                if (!classAttributeValue.Contains("active"))
-                {
-                    item.Click();
-                }
+                item.Click();
             }
         }
         public void ClickHelpMeGetAVat()
         {
-            var vatButtons = _driver.FindElements(btnsHelpMeGetAVat);
-            foreach (var button in vatButtons)
+            foreach (var button in btnsHelpMeGetAVat)
             {
                 button.Click();
             }
@@ -72,15 +65,14 @@ namespace TaxuallyTestAutomation.PageObjects
         {
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
 
-            IWebElement nextButtonElement = wait.Until(ExpectedConditions.ElementToBeClickable(btnNextStep));
+            wait.Until(ExpectedConditions.ElementToBeClickable(btnNextStep));
 
-            nextButtonElement.Click();
+            btnNextStep.Click();
         }
         public void SelectRandomCountries(int numberOfCountries)
         {
-            var elements = _driver.FindElements(selectCountries);
 
-            var randomCountries = elements.OrderBy(x => Guid.NewGuid()).Take(numberOfCountries);
+            var randomCountries = selectCountries.OrderBy(x => Guid.NewGuid()).Take(numberOfCountries);
 
             foreach (var country in randomCountries)
             {

@@ -14,8 +14,8 @@ namespace TaxuallyTestAutomation.PageObjects
         }
 
         #region Locators
-        By allowAllCookies(string buttonName) => By.XPath($"//div//button[contains(.,'{buttonName}')]");
-        By getStartedOrLogin(string buttonName) => By.XPath($"(//div//a[contains(.,'{buttonName}')])[1]");
+        IWebElement allowAllCookies(string buttonName) => _driver.FindElement(By.XPath($"//div//button[contains(.,'{buttonName}')]"));
+        IWebElement getStartedOrLogin(string buttonName) => _driver.FindElement(By.XPath($"(//div//a[contains(.,'{buttonName}')])[1]"));
         #endregion
 
 
@@ -29,12 +29,12 @@ namespace TaxuallyTestAutomation.PageObjects
 
         public void ClickOnButtonOnManageCookies(string buttonName)
         {
-            _driver.FindElement(allowAllCookies(buttonName)).Click();
+            allowAllCookies(buttonName).Click();
 
         }
         public void ChooseGetStartedOrLogin(string buttonName)
         {
-            _driver.FindElement(getStartedOrLogin(buttonName)).Click();
+            getStartedOrLogin(buttonName).Click();
         }
         #endregion
     }
