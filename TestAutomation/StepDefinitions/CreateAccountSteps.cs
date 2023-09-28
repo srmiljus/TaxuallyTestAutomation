@@ -1,9 +1,9 @@
 ﻿using BoDi;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TechTalk.SpecFlow;
-using TechTalk.SpecFlow.Assist;
 using TaxuallyTestAutomation.Models;
 using TaxuallyTestAutomation.PageObjects;
+using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Assist;
 
 namespace TaxuallyTestAutomation.StepDefinitions
 {

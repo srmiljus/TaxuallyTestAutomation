@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Configuration;
+using OpenQA.Selenium;
 using TaxuallyTestAutomation.Configuration;
 
 
@@ -6,11 +7,13 @@ namespace TaxuallyTestAutomation.PageObjects
 {
     internal class LoginPage
     {
-        IWebDriver _driver;
+        private readonly BrowserManager _browserManager;
+        private readonly IWebDriver _driver;
 
-        public LoginPage(IWebDriver driver)
+        public LoginPage(BrowserManager browserManager)
         {
-            _driver = driver;
+            _browserManager = browserManager;
+            _driver = _browserManager.GetDriver();
         }
 
         #region Locators

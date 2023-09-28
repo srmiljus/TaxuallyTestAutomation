@@ -1,6 +1,6 @@
 ﻿using BoDi;
-using TechTalk.SpecFlow;
 using TaxuallyTestAutomation.PageObjects;
+using TechTalk.SpecFlow;
 
 namespace TaxuallyTestAutomation.StepDefinitions
 {

@@ -1,7 +1,4 @@
-﻿using BoDi;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Firefox;
+﻿using Configuration;
 using TechTalk.SpecFlow;
 
 namespace TaxuallyTestAutomation.Configuration
@@ -9,38 +6,23 @@ namespace TaxuallyTestAutomation.Configuration
     [Binding]
     class Hooks
     {
-        IWebDriver _driver;
+        private readonly BrowserManager _browserManager;
+
+        public Hooks(BrowserManager browserManager)
+        {
+            _browserManager = browserManager;
+        }
 
         [BeforeScenario]
-        public void LaunchBrowsers(IObjectContainer _container)
+        public void BeforeScenario()
         {
-
-
-            switch (ConfigManager.Browser.ToLower())
-            {
-                case "chrome":
-                    _driver = new ChromeDriver();
-                    break;
-                case "firefox":
-                    _driver = new FirefoxDriver();
-                    break;
-                default:
-                    break;
-            }
-            _container.RegisterInstanceAs(_driver);
-
-            _driver.Manage().Window.Maximize();
-
-
+            _browserManager.LaunchBrowser(ConfigManager.Browser);
         }
 
         [AfterScenario]
-        public void CloseBrowsers()
+        public void AfterScenario()
         {
-
-            _driver.Dispose();
-            _driver.Quit();
-
+            _browserManager.CloseBrowser();
         }
     }
 }

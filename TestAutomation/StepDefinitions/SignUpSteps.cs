@@ -1,7 +1,7 @@
 ﻿using BoDi;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TechTalk.SpecFlow;
 using TaxuallyTestAutomation.PageObjects;
+using TechTalk.SpecFlow;
 
 namespace TaxuallyTestAutomation.StepDefinitions
 {

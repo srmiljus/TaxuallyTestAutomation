@@ -1,5 +1,5 @@
-﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Interactions;
+﻿using Configuration;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
@@ -7,11 +7,13 @@ namespace TaxuallyTestAutomation.PageObjects
 {
     internal class SignUpPage
     {
-        IWebDriver _driver;
+        private readonly BrowserManager _browserManager;
+        private readonly IWebDriver _driver;
 
-        public SignUpPage(IWebDriver driver)
+        public SignUpPage(BrowserManager browserManager)
         {
-            _driver = driver;
+            _browserManager = browserManager;
+            _driver = _browserManager.GetDriver();
         }
 
         #region Locators

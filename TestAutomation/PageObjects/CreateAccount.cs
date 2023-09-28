@@ -1,15 +1,18 @@
-﻿using OpenQA.Selenium;
+﻿using Configuration;
+using OpenQA.Selenium;
 using TaxuallyTestAutomation.Models;
 
 namespace TaxuallyTestAutomation.PageObjects
 {
     internal class CreateAccount
     {
-        IWebDriver _driver;
+        private readonly BrowserManager _browserManager;
+        private readonly IWebDriver _driver;
 
-        public CreateAccount(IWebDriver driver)
+        public CreateAccount(BrowserManager browserManager)
         {
-            _driver = driver;
+            _browserManager = browserManager;
+            _driver = _browserManager.GetDriver();
         }
 
         #region Locators
