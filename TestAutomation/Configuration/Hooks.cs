@@ -1,28 +1,26 @@
 ﻿using Configuration;
-using TechTalk.SpecFlow;
 
-namespace TaxuallyTestAutomation.Configuration
+namespace TaxuallyTestAutomation.Configuration;
+
+[Binding]
+class Hooks
 {
-    [Binding]
-    class Hooks
+    private readonly BrowserManager _browserManager;
+
+    public Hooks(BrowserManager browserManager)
     {
-        private readonly BrowserManager _browserManager;
+        _browserManager = browserManager;
+    }
 
-        public Hooks(BrowserManager browserManager)
-        {
-            _browserManager = browserManager;
-        }
+    [BeforeScenario]
+    public void BeforeScenario()
+    {
+        _browserManager.LaunchBrowser(ConfigManager.Browser);
+    }
 
-        [BeforeScenario]
-        public void BeforeScenario()
-        {
-            _browserManager.LaunchBrowser(ConfigManager.Browser);
-        }
-
-        [AfterScenario]
-        public void AfterScenario()
-        {
-            _browserManager.CloseBrowser();
-        }
+    [AfterScenario]
+    public void AfterScenario()
+    {
+        _browserManager.CloseBrowser();
     }
 }
